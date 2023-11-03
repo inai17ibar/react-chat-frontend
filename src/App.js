@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Chat from './Chat';
@@ -12,7 +13,7 @@ function LoginComponent() {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://localhost:8000/login', {
+      const response = await fetch('http://localhost:8000/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -35,25 +36,44 @@ function LoginComponent() {
     }
   };
 
+  const handleRegister = async () => {
+    try {
+      await axios.post('http://localhost:8000/auth/register', { username, password });
+      setMessage('Registered successfully. You can now login.');
+      setTimeout(() => {
+        navigate("/chat");
+      }, 1000);
+    } catch (error) {
+      setMessage('Registration failed');
+    }
+  };
+
   return (
     <div className="App">
-      <h2>Login to Chat App</h2>
-      <div className="login-form">
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+    <h1>Login and Registration</h1>
+    
+    <div className="login-form">
+        <div>
+            <label>Username:</label>
+            <input
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+            />
+        </div>
+        <div>
+            <label>Password:</label>
+            <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
+        </div>
+    
         <button onClick={handleLogin}>Login</button>
-      </div>
-      {message && <p className="message">{message}</p>}
+        <button onClick={handleRegister}>Register</button>
+    </div>
+    
+    <div className="message">{message}</div>
     </div>
   );
 }
