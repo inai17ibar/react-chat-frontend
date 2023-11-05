@@ -75,3 +75,38 @@
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
+/* styles.css or a relevant CSS file */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: white;
+  border: 1px solid black;
+  z-index: 1000;
+}
+
+.auth-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;  /* 余白を追加してDeleteボタンとの間にスペースを作る */
+}
+
+.login-button, .register-button, .delete-button {
+  padding: 10px 15px;
+  text-decoration: none;
+  border: 1px solid #000;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover, .register-button:hover, .delete-button:hover {
+  background-color: #f0f0f0;
+}
+
+.delete-button-container {
+  margin-top: 20px;  /* ログインと登録ボタンからの距離を追加 */
+}

@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Chat from './Chat';
+import DeleteAccountPage from './DeleteAccountPage';
 
 function LoginComponent() {
   const [username, setUsername] = useState("");
@@ -10,6 +11,10 @@ function LoginComponent() {
   const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
+
+  const handleDeleteButtonClick = () => {
+    navigate('/delete-account');
+  };
 
   const handleLogin = async () => {
     try {
@@ -71,6 +76,9 @@ function LoginComponent() {
     
         <button onClick={handleLogin}>Login</button>
         <button onClick={handleRegister}>Register</button>
+        <div className="delete-button-container">
+          <button onClick={handleDeleteButtonClick} className="delete-button">Delete Account</button>
+        </div>
     </div>
     
     <div className="message">{message}</div>
@@ -83,8 +91,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<LoginComponent />} />
-        {/* ここに"/chat"のルーティングを追加する際に、ChatComponentも追加する必要があります */}
         <Route path="/chat" element={<Chat />} />
+        <Route path="/delete-account" element={<DeleteAccountPage />} />
       </Routes>
     </Router>
   );
