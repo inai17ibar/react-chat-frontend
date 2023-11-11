@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { jwtDecode } from 'jwt-decode';
+import './Chat.css';
 
 function Chat() {
   const [messages, setMessages] = useState([]);
@@ -8,7 +9,7 @@ function Chat() {
   const [isConnected, setIsConnected] = useState(false);
   const ws = useRef(null);
 
-  console.log("Chat component rendered");
+  //console.log("Chat component rendered");
 
   useEffect(() => {
     console.log("UseEffect called");
@@ -71,7 +72,7 @@ function Chat() {
       <h4>Your username: {username}</h4>
       <div className="messages">
         {messages.map((message, index) => (
-          <div key={index} className="message">
+          <div key={index} className={`message ${message.username === username ? 'self' : 'other'}`}>
             <strong>{message.username}:</strong> {message.message}
           </div>
         ))}

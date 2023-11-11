@@ -1,0 +1,67 @@
+/* スタイル全体の設定 */
+.chat-container {
+    max-width: 600px; /* チャットコンテナの最大幅を設定 */
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* チャットメッセージエリア */
+  .messages {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* メッセージのスタイル */
+  .message {
+    padding: 10px;
+    margin-bottom: 10px;
+    max-width: 80%; /* メッセージの最大幅を設定 */
+    border-radius: 10px;
+  }
+  
+  /* 自分のメッセージのスタイル */
+.message.self {
+    align-self: flex-start; /* 左側に表示するためにflex-startに変更 */
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  /* 他のユーザのメッセージのスタイル */
+  .message.other {
+    align-self: flex-end; /* 右側に表示するためにflex-endに変更 */
+    background-color: #f0f0f0;
+  }
+  
+  /* 入力エリアのスタイル */
+  .input-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  /* テキスト入力フィールドのスタイル */
+  input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  /* 送信ボタンのスタイル */
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* 送信ボタンのホバースタイル */
+  button:hover {
+    background-color: #0056b3;
+  }
+  
