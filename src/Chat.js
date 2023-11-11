@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import './Chat.css';
 
@@ -7,9 +8,10 @@ function Chat() {
   const [inputValue, setInputValue] = useState('');
   const [username, setUsername] = useState('');
   const [isConnected, setIsConnected] = useState(false);
+  const [message, setMessage] = useState("");
   const ws = useRef(null);
 
-  //console.log("Chat component rendered");
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("UseEffect called");
@@ -55,6 +57,34 @@ function Chat() {
     };
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      // ログアウトAPIを呼び出し
+      const response = await fetch("http://localhost:8000/auth/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // ログアウト時にはトークンを送信して認証を行うこともあります
+          // "Authorization": `Bearer ${token}`,
+        },
+      });
+
+      if (response.status === 200) {
+        // ログアウト成功時の処理
+        setMessage("Logout successful!");
+        // ログアウト後、ログインページにリダイレクトするなど
+        setTimeout(() => {
+          navigate("/");
+        }, 100);
+      } else {
+        // ログアウト失敗時の処理
+        setMessage("Error logging in. Please try again.");
+      }
+    } catch (error) {
+        setMessage(error.message)
+    }
+  }
+
   const handleSendMessage = () => {
     if (inputValue.trim()) {
       const messageObj = { username: username, message: inputValue };
@@ -70,6 +100,13 @@ function Chat() {
     <div className="chat-container">
       <h2>Chat Room</h2>
       <h4>Your username: {username}</h4>
+      <div>
+      {/* チャットコンポーネントの表示 */}
+      <button onClick={handleLogout}>Logout</button>
+      </div>
+      <div>
+        {message}
+      </div>
       <div className="messages">
         {messages.map((message, index) => (
           <div key={index} className={`message ${message.username === username ? 'self' : 'other'}`}>

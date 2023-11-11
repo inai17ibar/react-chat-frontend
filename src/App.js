@@ -29,7 +29,6 @@ function LoginComponent() {
       const data = await response.json();
       if (data.token) {
         localStorage.setItem('token', data.token);
-        //localStorage.setItem('username', username);
         setMessage("Login successful!");
         setTimeout(() => {
           navigate("/chat");
